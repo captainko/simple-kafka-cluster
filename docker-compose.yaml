@@ -3,15 +3,17 @@ version: '3.8'
 services:
   zookeeper:
     image: bitnami/zookeeper:latest
+    restart: always
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
     ports:
       - "2181:2181"
     volumes:
-      - zookeeper_data:/bitnami
+      - zookeeper_data:/bitnami/zookeeper
 
   kafka:
     image: bitnami/kafka:latest
+    restart: always
     depends_on:
       - zookeeper
     environment:
@@ -27,10 +29,11 @@ services:
       - "9092:9092"
       - "29092:29092"
     volumes:
-      - kafka_data:/bitnami
+      - kafka_data:/bitnami/kafka
 
   kafka-ui:
     image: provectuslabs/kafka-ui:latest
+    restart: always
     depends_on:
       - kafka
     environment:
