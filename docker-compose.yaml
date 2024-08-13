@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   zookeeper:
@@ -42,7 +42,21 @@ services:
       - KAFKA_CLUSTERS_0_ZOOKEEPER=zookeeper:2181
     ports:
       - "8088:8080"
+  postgres:
+    container_name: postgres_container
+    image: postgres
+    environment:
+      POSTGRES_USER: ttek
+      POSTGRES_PASSWORD: zT5NQ0o0QiPXWdtiL0Nh8tfA
+      POSTGRES_DB: bv_core_dev
+      PGDATA: /data/postgres
+    volumes:
+      - postgres_data:/data/postgres
+    ports:
+      - "30585:5432"
+    restart: unless-stopped
 
 volumes:
   zookeeper_data:
   kafka_data:
+  postgres_data:
